@@ -18,6 +18,9 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "swagger:generate": "ts-node src/generate-swagger.ts"
   },
+   "engines": {
+    "node": ">=20.0.0"
+  },
   "dependencies": {
     "@getbrevo/brevo": "^2.5.0",
     "@nestjs/common": "^11.1.3",

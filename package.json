@@ -23,7 +23,7 @@
     "dev:general": "nest start general --watch",
     "dev:notifications": "nest start notifications --watch",
     "dev:external": "nest start external --watch",
-    "start:gateway": "node apps/gateway/dist/main.js",
+    "start:gateway": "node gateway/dist/main.js",
     "start:auth": "node apps/auth/dist/main.js",
     "start:general": "node apps/general/dist/main.js",
     "start:notifications": "node apps/notifications/dist/main.js",
@@ -93,6 +93,9 @@
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.20.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "jest": {
     "moduleFileExtensions": [
