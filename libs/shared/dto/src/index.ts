@@ -5,4 +5,5 @@ export * from './login.dto';
 export * from './mercadopago.dto';
 export * from './checkoutbricks.dto';
 export * from './register.dto';
-export * from './update-bill-item.dto'; 
+export * from './update-bill-item.dto';
+export * from './send-email.dto'; 

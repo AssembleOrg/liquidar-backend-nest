@@ -7,9 +7,10 @@ import { User } from './entities/user.entity';
 import { NotificationsService } from './services/notifications.service';
 import { VerificationService } from './services/verification.service';
 import { GoogleAuthService, GoogleUserInfo } from './services/google-auth.service';
-import { RegisterDto, LoginDto, GoogleLoginDto, CreateBillItemDto, BillItemResponseDto } from '@shared/dto';
+import { RegisterDto, LoginDto, GoogleLoginDto, CreateBillItemDto, BillItemResponseDto, SendWelcomeEmailDto } from '@shared/dto';
 import { MicroserviceErrorHandler, UserRole } from '@shared/common';
 import { ClientProxy, RpcException } from '@nestjs/microservices';
+import { SendVerificationEmailDto } from '@shared/dto';
 
 export interface LoginResponse {
   user: {
@@ -29,8 +30,8 @@ export class AuthService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    private jwtService: JwtService,
-    private notificationsService: NotificationsService,
+      private jwtService: JwtService,
+      @Inject('NOTIFICATIONS_SERVICE') private readonly notificationsService: ClientProxy,
     private verificationService: VerificationService,
     private googleAuthService: GoogleAuthService,
     @Inject('GENERAL_SERVICE') private readonly generalService: ClientProxy,
@@ -72,13 +73,12 @@ export class AuthService {
     // Generate verification token and send email
     const verificationToken = this.verificationService.generateVerificationToken(Number(savedUser.id), savedUser.email);
 
-    try {
-      console.log('Sending verification email to:', savedUser.email);
-      await this.notificationsService.sendVerificationEmail(savedUser.email, savedUser.firstName, verificationToken);
-    } catch (error) {
-      // Log error but don't fail registration
-      console.error('Error sending verification email:', error);
-    }
+    const sendVerificationEmail = await this.errorHandler.executeMicroserviceOperation(
+      this.notificationsService,
+      'notifications.sendVerificationEmail',
+      SendVerificationEmailDto,
+      'Sending verification email'
+    );
 
     return {
       user: {
@@ -227,11 +227,12 @@ export class AuthService {
       await this.userRepository.save(user);
 
       // Send welcome email
-      try {
-        await this.notificationsService.sendWelcomeEmail(user.email, user.firstName);
-      } catch (error) {
-        console.error('Error sending welcome email:', error);
-      }
+      const sendWelcomeEmail = await this.errorHandler.executeMicroserviceOperation(
+        this.notificationsService,
+        'notifications.sendWelcomeEmail',
+        SendWelcomeEmailDto,
+        'Sending welcome email'
+      );
 
       return { message: 'Email verificado exitosamente' };
     } catch (error) {
@@ -267,7 +268,12 @@ export class AuthService {
     await this.userRepository.save(user);
 
     // Send verification email
-    await this.notificationsService.sendVerificationEmail(user.email, user.firstName, verificationToken);
+    const sendVerificationEmail = await this.errorHandler.executeMicroserviceOperation(
+      this.notificationsService,
+      'notifications.sendVerificationEmail',
+      SendVerificationEmailDto,
+      'Sending verification email'
+    );
 
     return { message: 'Email de verificación reenviado exitosamente' };
   }
@@ -324,10 +330,15 @@ export class AuthService {
 
         // Enviar email de bienvenida
         try {
-          await this.notificationsService.sendWelcomeEmail(savedUser.email, savedUser.firstName);
+          const sendWelcomeEmail = await this.errorHandler.executeMicroserviceOperation(
+            this.notificationsService,
+            'notifications.sendWelcomeEmail',
+            SendWelcomeEmailDto,
+            'Sending welcome email'
+          );
         } catch (error) {
           console.error('Error sending welcome email:', error);
-        }
+        } 
 
         user = savedUser;
       }

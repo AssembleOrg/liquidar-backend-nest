@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { NotificationsService } from './notifications.service';
-import { SendVerificationEmailDto, SendWelcomeEmailDto } from './dto/send-email.dto';
+import { SendVerificationEmailDto, SendWelcomeEmailDto } from '@shared/dto';
 
 @Controller()
 export class NotificationsController {
