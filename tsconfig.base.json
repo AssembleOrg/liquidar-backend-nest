@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "lib": ["es2022"],
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
+
+    /* ───── alias compartidos ───── */
+    "baseUrl": ".",
+    "paths": {
+      "@shared/dto":        ["libs/shared/dto/src"],
+      "@shared/dto/*":      ["libs/shared/dto/src/*"],
+      "@shared/common":     ["libs/shared/common/src"],
+      "@shared/common/*":   ["libs/shared/common/src/*"],
+      "@shared/templates":  ["libs/shared/templates/src"],
+      "@shared/templates/*": ["libs/shared/templates/src/*"],
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "libs/shared/common"
+    },
+    {
+      "path": "libs/shared/dto"
+    },
+    {
+      "path": "apps/gateway"
+    },
+    {
+      "path": "apps/auth"
+    },
+    {
+      "path": "apps/general"
+    },
+    {
+      "path": "apps/notifications"
+    },
+    {
+      "path": "apps/external"
+    }
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {}
+  }
+}

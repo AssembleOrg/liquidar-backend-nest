@@ -1,0 +1,12 @@
+{
+  "name": "@shared/templates",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "scripts": {
+    "prebuild": "mkdir -p ../../../../dist/libs/shared/templates",
+    "postbuild": "rsync -av --include='*/' --include='*.hbs' --exclude='*' src/ ../../../../dist/libs/shared/templates/"
+  },
+  "dependencies": {
+    "mustache": "^4.2.0"
+  }
+}
