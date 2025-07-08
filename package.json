@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "tsc --build && tsc-alias -p tsconfig.base.json",
     "build:all": "nest build gateway && nest build auth && nest build general && nest build notifications && nest build external",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start gateway",
