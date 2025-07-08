@@ -26,7 +26,6 @@ import { MicroserviceErrorsModule } from '@shared/common';
       useFactory: (configService: ConfigService) => {
         const dbUrl = configService.get<string>('AUTH_POSTGRES_URL');
         const nodeEnv = configService.get('NODE_ENV');
-        console.log('🔍 Config Debug:', { dbUrl, nodeEnv });
         
         return {
           type: 'postgres',

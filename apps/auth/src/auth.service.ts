@@ -44,7 +44,11 @@ export class AuthService {
     // Check if user already exists
     const existingUser = await this.userRepository.findOne({ where: { email } });
     if (existingUser) {
-      throw new ConflictException('User already exists');
+      throw new RpcException({
+        status: 'error',
+        message: 'Este email ya está registrado',
+        code: 409
+      });
     }
 
     const normalizedEmail = email.toLowerCase();
@@ -69,14 +73,18 @@ export class AuthService {
 
 
     const savedUser = await this.userRepository.save(user);
-
-    // Generate verification token and send email
     const verificationToken = this.verificationService.generateVerificationToken(Number(savedUser.id), savedUser.email);
+
+    const sendVerificationEmailDto = {
+      email: savedUser.email,
+      firstName: savedUser.firstName,
+      verificationToken: verificationToken
+    }
 
     const sendVerificationEmail = await this.errorHandler.executeMicroserviceOperation(
       this.notificationsService,
       'notifications.sendVerificationEmail',
-      SendVerificationEmailDto,
+      sendVerificationEmailDto,
       'Sending verification email'
     );
 

@@ -13,11 +13,21 @@ import { ExternalService } from './external.service';
         useFactory: (configService: ConfigService) => ({
           transport: Transport.TCP,
           options: {
-            host: configService.get('EXTERNAL_SERVICE_HOST', 'localhost'),
-            port: configService.get('EXTERNAL_SERVICE_PORT', 3002),
+            host: process.env.EXTERNAL_SERVICE_HOST || 'localhost', // Default host if not set
+            port: parseInt(process.env.EXTERNAL_SERVICE_PORT || '3002'),
           },
         }),
         inject: [ConfigService],
+      },
+    ]),
+    ClientsModule.register([
+      {
+        name: 'GENERAL_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: process.env.GENERAL_SERVICE_HOST || 'localhost',
+          port: parseInt(process.env.GENERAL_SERVICE_PORT || '3003'),
+        },
       },
     ]),
   ],
