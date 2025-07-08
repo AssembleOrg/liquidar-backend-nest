@@ -20,7 +20,7 @@
     "noFallthroughCasesInSwitch": false,
 
     /* ───── alias compartidos ───── */
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@shared/dto":        ["libs/shared/dto/src"],
       "@shared/dto/*":      ["libs/shared/dto/src/*"],

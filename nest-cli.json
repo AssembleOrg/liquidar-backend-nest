@@ -1,11 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/liquidar-backend-nest/src",
+  "sourceRoot": "apps/gateway/src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "tsConfigPath": "apps/liquidar-backend-nest/tsconfig.app.json",
-    "webpack": true
+    "tsConfigPath": "tsconfig.json",
+    "webpack": false
   },
   "assets": [
     {
@@ -17,14 +17,22 @@
   "monorepo": true,
   "root": "apps/gateway",
   "projects": {
+    "gateway": {
+      "type": "application",
+      "root": "apps/gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/gateway/tsconfig.app.json"
+      }
+    },
     "auth": {
       "type": "application",
       "root": "apps/auth",
       "entryFile": "main",
       "sourceRoot": "apps/auth/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/auth/tsconfig.app.json",
-        "outputPath": "apps/auth/dist" 
+        "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     },
     "external": {
@@ -33,18 +41,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/external/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/external/tsconfig.app.json",
-        "outputPath": "apps/external/dist" 
-      }
-    },
-    "gateway": {
-      "type": "application",
-      "root": "apps/gateway",
-      "entryFile": "main",
-      "sourceRoot": "apps/gateway/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/gateway/tsconfig.app.json",
-        "outputPath": "apps/gateway/dist"
+        "tsConfigPath": "apps/external/tsconfig.app.json"
       }
     },
     "general": {
@@ -53,8 +50,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/general/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/general/tsconfig.app.json",
-        "outputPath": "apps/general/dist" 
+        "tsConfigPath": "apps/general/tsconfig.app.json"
       }
     },
     "notifications": {
@@ -63,8 +59,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/notifications/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/notifications/tsconfig.app.json",
-        "outputPath": "apps/notifications/dist" 
+        "tsConfigPath": "apps/notifications/tsconfig.app.json"
       }
     },
     "shared/common": {
@@ -73,8 +68,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/shared/common/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/shared/common/tsconfig.lib.json",
-        "outputPath": "libs/shared/common/dist" 
+        "tsConfigPath": "libs/shared/common/tsconfig.lib.json"
       }
     },
     "shared/dto": {
@@ -83,8 +77,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/shared/dto/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/shared/dto/tsconfig.lib.json",
-        "outputPath": "libs/shared/dto/dist" 
+        "tsConfigPath": "libs/shared/dto/tsconfig.lib.json"
       }
     },
     "shared/templates": {
@@ -93,8 +86,7 @@
       "entryFile": "index",
       "sourceRoot": "libs/shared/templates/src",
       "compilerOptions": {
-        "tsConfigPath": "libs/shared/templates/tsconfig.lib.json",
-        "outputPath": "libs/shared/templates/dist" 
+        "tsConfigPath": "libs/shared/templates/tsconfig.lib.json"
       }
     }
   }
