@@ -3,3 +3,6 @@ onlyBuiltDependencies:
   - '@scarf/scarf'
   - '@swc/core'
   - bcrypt
+packages:
+  - apps/*
+  - libs/*

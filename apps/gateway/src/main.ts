@@ -24,24 +24,11 @@ async function bootstrap() {
       exceptionFactory: (errors) => new BadRequestException(errors),
     }),
   );
-  // // 1. Helmet: cabeceras HTTP seguras
-  // app.use(helmet(
-  //   {
-  //      crossOriginEmbedderPolicy: false,
-  //   crossOriginOpenerPolicy: false,
-  //   }
-  // ));
+  // 1. Helmet: cabeceras HTTP seguras
+  app.use(helmet());
 
-  app.enableCors({
-    origin: [
-      'https://gdl1kf1g-5173.brs.devtunnels.ms/login',   // tu URL de túnel
-      'http://localhost:5173',             // si corres Vite en local
-    ],
-    credentials: true,                    // necesario si usas cookies
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  });
-
+  // Configurar CORS
+  app.enableCors();
 
   // Configurar Swagger
   const config = new DocumentBuilder()
